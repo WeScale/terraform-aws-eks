@@ -67,8 +67,18 @@ module "eks" {
 
 ```
 
-- for cluster_vars : 
-cluster_vars {
+- cluster_vars are variables for node groupe, you can create multiple nodes groups in one cluster : 
+cluster_vars = [ { # first node group
+      cluster_name    => EKS cluster name
+      node_group_name => Nodes groups name
+      node_role_arn   => ARN of IAM for nodes groups
+      desired_size    => Desired number of worker nodes
+      max_size        => Maximum number of worker nodes
+      min_size        => Minimum number of worker nodes
+      ami_type        => ami type for instances, by default is "AL2_x86_64" .
+      disk_size       => Disk size in GiB for worker nodes. Defaults to 20( optional )
+},
+ { # second node group
       cluster_name    => EKS cluster name
       node_group_name => Nodes groups name
       node_role_arn   => ARN of IAM for nodes groups
@@ -78,6 +88,9 @@ cluster_vars {
       ami_type        => ami type for instances, by default is "AL2_x86_64" .
       disk_size       => Disk size in GiB for worker nodes. Defaults to 20( optional )
 }
+
+
+]
 
 - for labels and tags_for_node_groups :  
 You must specify for each node group the vars,despite with values or not, for example we have 2 nodes groups:
