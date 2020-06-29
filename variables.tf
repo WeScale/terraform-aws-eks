@@ -5,7 +5,15 @@ variable "name" {
 variable "security_group_ids" {
   type = list(string)
 }
-
+variable "create" {
+  type = bool
+  description = "boolean"
+  default = true
+}
+variable "enabled" {
+  type = number
+  default = 0
+}
 variable "role" {
   type        = string
   description = " ARN of IAM roles "
@@ -17,7 +25,7 @@ variable "subnet_ids" {
 }
 variable "depends" {
   type        = list(map(string))
-  description = "(optional) describe your variable"
+  description = "dependencies of cluster"
 }
 
 
@@ -35,43 +43,36 @@ variable "version_kube" {
 
 variable "enabled_cluster_log" {
   type        = list(string)
-  description = "Kubernetes Version"
-
+  description = "A list of the desired control plane logging to enable. For more information"
   default = []
 }
-
 
 variable "endpoint_private_access" {
   type        = bool
   default     = false
-  description = "enabled endpoint private access"
+  description = "Indicates whether or not the Amazon EKS private API server endpoint is enabled. Default is false"
 }
 
 variable "endpoint_public_access" {
   type        = bool
   default     = true
-  description = "enabled describe your variable"
+  description = "Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default is true"
 }
 
 variable "public_access_cidrs" {
   type        = list(string)
   default     = []
-  description = ""
+  description = "List of CIDR blocks. Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0"
 }
 
 variable "cluster_vars" {
   type        = list(map(string))
-  description = "Variables required to build cluster"
+  description = "Variables required to build Node Groupe"
   default =[]
-}
-variable "ami_type" {
-  type        = string
-  description = "AMI Type"
-  default     = "AL2_x86_64"
 }
 variable "force_update_version" {
   type        = bool
-  description = "(optional) describe your variable"
+  description = "Force version update if existing pods are unable to be drained due to a pod disruption budget issue"
   default     = false
 }
 variable "instance_types" {
@@ -81,7 +82,7 @@ variable "instance_types" {
 }
 variable "labels" {
   type        = list(map(string))
-  description = "(optional) describe your variable"
+  description = "Key-value map of Kubernetes labels"
   default= []
 }
 variable "tags_for_node_groups" {
@@ -95,17 +96,7 @@ variable "depends_cluster" {
   default =[]
 }
 variable "disk_size" {
-  type = string
-  description = "(optional) describe your variable"
-  default = 20
-
-}
-variable "create" {
-  type = bool
-  description = "(optional) describe your variable"
-  default = true
-}
-variable "enabled" {
   type = number
-  default = 0
+  description = "Disk size in GiB for worker nodes. Defaults to 20"
+  default = 20
 }

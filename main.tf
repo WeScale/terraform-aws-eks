@@ -25,7 +25,6 @@ resource "aws_eks_node_group" "default" {
     desired_size = lookup(var.cluster_vars[count.index], "desired_size", "")
     max_size     = lookup(var.cluster_vars[count.index], "max_size", "")
     min_size     = lookup(var.cluster_vars[count.index], "min_size", "")
-
   }
   subnet_ids           = var.subnet_ids
   ami_type             = lookup(var.cluster_vars[count.index], "ami_type", "AL2_x86_64")
