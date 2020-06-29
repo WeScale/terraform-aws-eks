@@ -10,7 +10,7 @@ resource "aws_eks_cluster" "default" {
     subnet_ids              = var.subnet_ids
     endpoint_private_access = var.endpoint_private_access
     endpoint_public_access  = var.endpoint_public_access
-    }
+  }
 
   depends_on = [var.depends]
 }
@@ -26,13 +26,13 @@ resource "aws_eks_node_group" "default" {
     max_size     = lookup(var.cluster_vars[count.index], "max_size", "")
     min_size     = lookup(var.cluster_vars[count.index], "min_size", "")
   }
-  subnet_ids           = var.subnet_ids
-  ami_type             = lookup(var.cluster_vars[count.index], "ami_type", "AL2_x86_64")
-  disk_size            = lookup(var.cluster_vars[count.index], "disk_size", 20)
-  instance_types       = var.instance_types
+  subnet_ids     = var.subnet_ids
+  ami_type       = lookup(var.cluster_vars[count.index], "ami_type", "AL2_x86_64")
+  disk_size      = lookup(var.cluster_vars[count.index], "disk_size", 20)
+  instance_types = var.instance_types
 
-  labels               = var.labels[count.index]
-  tags                 = var.tags_for_node_groups[count.index]
-  version              = var.version_kube
-  depends_on           = [var.depends_cluster]
+  labels     = var.labels[count.index]
+  tags       = var.tags_for_node_groups[count.index]
+  version    = var.version_kube
+  depends_on = [var.depends_cluster]
 }

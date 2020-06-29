@@ -6,12 +6,12 @@ variable "security_group_ids" {
   type = list(string)
 }
 variable "create" {
-  type = bool
+  type        = bool
   description = "boolean"
-  default = true
+  default     = true
 }
 variable "enabled" {
-  type = number
+  type    = number
   default = 0
 }
 variable "role" {
@@ -44,7 +44,7 @@ variable "version_kube" {
 variable "enabled_cluster_log" {
   type        = list(string)
   description = "A list of the desired control plane logging to enable. For more information"
-  default = []
+  default     = []
 }
 
 variable "endpoint_private_access" {
@@ -68,7 +68,7 @@ variable "public_access_cidrs" {
 variable "cluster_vars" {
   type        = list(map(string))
   description = "Variables required to build Node Groupe"
-  default =[]
+  default     = []
 }
 variable "force_update_version" {
   type        = bool
@@ -83,7 +83,7 @@ variable "instance_types" {
 variable "labels" {
   type        = list(map(string))
   description = "Key-value map of Kubernetes labels"
-  default= []
+  default     = []
 }
 variable "tags_for_node_groups" {
   type        = list(map(string))
@@ -93,10 +93,5 @@ variable "tags_for_node_groups" {
 variable "depends_cluster" {
   type        = list(list(map(string)))
   description = "dependencies of node groupe"
-  default =[]
-}
-variable "disk_size" {
-  type = number
-  description = "Disk size in GiB for worker nodes. Defaults to 20"
-  default = 20
+  default     = []
 }

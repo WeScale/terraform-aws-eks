@@ -75,6 +75,8 @@ cluster_vars {
       desired_size    => Desired number of worker nodes
       max_size        => Maximum number of worker nodes
       min_size        => Minimum number of worker nodes
+      ami_type        => ami type for instances, by default is "AL2_x86_64" .
+      disk_size       => Disk size in GiB for worker nodes. Defaults to 20( optional )
 }
 
 - for labels and tags_for_node_groups :  
