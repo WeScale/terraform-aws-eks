@@ -31,8 +31,8 @@ resource "aws_eks_node_group" "default" {
   disk_size      = lookup(var.cluster_vars[count.index], "disk_size", 20)
   instance_types = var.instance_types
 
-  labels     = var.labels[count.index]
-  tags       = var.tags_for_node_groups[count.index]
+  labels     = count.index > 0 && length(var.labels) > 0 ? var.labels[count.index] : {}
+  tags       = count.index > 0 && length(var.tags_for_node_groups) > 0 ? var.tags_for_node_groups[count.index] : {}
   version    = var.version_kube
   depends_on = [var.depends_cluster]
 }
