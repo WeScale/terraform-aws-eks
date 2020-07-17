@@ -1,0 +1,28 @@
+name: CI for integration
+on: push
+jobs:
+  vpc-integration-tests:
+    name: Run Go integration Tests for terraform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+      - name: Setup Terraform
+        uses: autero1/action-terraform@v0.1.0
+        with:
+          terraform_version: 0.12.24
+      - name: Download Terraform modules
+        working-directory: test
+        run: go get "github.com/gruntwork-io/terratest/modules/terraform"
+
+      - name: Download aws modules
+        working-directory: test
+        run: go get "github.com/gruntwork-io/terratest/modules/aws"
+      - name: Run Go integration Tests
+        working-directory: test
+        run: go test Eks_integration_test.go -timeout 20m -v
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

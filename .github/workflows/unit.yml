@@ -1,0 +1,25 @@
+name: CI
+on: push
+jobs:
+  vpc-unit-tests:
+    name: Run Go Unit Tests for terraform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v1.0.1
+        with:
+          terraform_version: 0.12.21
+      - name: Run Go Tests
+        working-directory: test
+        run: go get "github.com/gruntwork-io/terratest/modules/terraform"    
+  
+      - name: Run Go Tests
+        working-directory: test
+        run: go test Eks_unit_test.go -v
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
