@@ -8,7 +8,7 @@ import (
 
 func TestSyntax(t *testing.T) {
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../example",
+		TerraformDir: "../",
 	}
 	terraform.RunTerraformCommand(t, terraformOptions, terraform.FormatArgs(terraformOptions, "fmt", "--check")...)
 
