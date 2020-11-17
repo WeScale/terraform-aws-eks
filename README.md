@@ -1,4 +1,4 @@
-# terraform-aws-sg
+# terraform-aws-eks
 
 - ``` terraform-aws-eks ``` is a Terraform module to provide EKS cluster With node groups .
 - it's an opensource module under GPL license
